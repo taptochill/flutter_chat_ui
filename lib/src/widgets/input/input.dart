@@ -71,18 +71,15 @@ class _InputState extends State<Input> {
   void initState() {
     super.initState();
 
-    _textController =
-        widget.options.textEditingController ?? InputTextFieldController();
+    _textController = widget.options.textEditingController ?? InputTextFieldController();
     _handleSendButtonVisibilityModeChange();
   }
 
   void _handleSendButtonVisibilityModeChange() {
     _textController.removeListener(_handleTextControllerChange);
-    if (widget.options.sendButtonVisibilityMode ==
-        SendButtonVisibilityMode.hidden) {
+    if (widget.options.sendButtonVisibilityMode == SendButtonVisibilityMode.hidden) {
       _sendButtonVisible = false;
-    } else if (widget.options.sendButtonVisibilityMode ==
-        SendButtonVisibilityMode.editing) {
+    } else if (widget.options.sendButtonVisibilityMode == SendButtonVisibilityMode.editing) {
       _sendButtonVisible = _textController.text.trim() != '';
       _textController.addListener(_handleTextControllerChange);
     } else {
@@ -96,9 +93,8 @@ class _InputState extends State<Input> {
       final partialText = types.PartialText(text: trimmedText);
       widget.onSendPressed(partialText);
 
-      if (widget.options.inputClearMode == InputClearMode.always) {
-        _textController.clear();
-      }
+      // If widget.options.inputClearMode == InputClearMode.always.
+      _textController.clear();
     }
   }
 
@@ -110,10 +106,7 @@ class _InputState extends State<Input> {
 
   Widget _inputBuilder() {
     final query = MediaQuery.of(context);
-    final buttonPadding = InheritedChatTheme.of(context)
-        .theme
-        .inputPadding
-        .copyWith(left: 16, right: 16);
+    final buttonPadding = InheritedChatTheme.of(context).theme.inputPadding.copyWith(left: 16, right: 16);
     final safeAreaInsets = isMobile
         ? EdgeInsets.fromLTRB(
             query.padding.left,
@@ -122,11 +115,7 @@ class _InputState extends State<Input> {
             query.viewInsets.bottom + query.padding.bottom,
           )
         : EdgeInsets.zero;
-    final textPadding = InheritedChatTheme.of(context)
-        .theme
-        .inputPadding
-        .copyWith(left: 0, right: 0)
-        .add(
+    final textPadding = InheritedChatTheme.of(context).theme.inputPadding.copyWith(left: 0, right: 0).add(
           EdgeInsets.fromLTRB(
             widget.onAttachmentPressed != null ? 0 : 24,
             0,
@@ -143,8 +132,7 @@ class _InputState extends State<Input> {
           borderRadius: InheritedChatTheme.of(context).theme.inputBorderRadius,
           color: InheritedChatTheme.of(context).theme.inputBackgroundColor,
           child: Container(
-            decoration:
-                InheritedChatTheme.of(context).theme.inputContainerDecoration,
+            decoration: InheritedChatTheme.of(context).theme.inputContainerDecoration,
             padding: safeAreaInsets,
             child: Row(
               textDirection: TextDirection.ltr,
@@ -164,24 +152,12 @@ class _InputState extends State<Input> {
                       autofocus: widget.options.autofocus,
                       enableSuggestions: widget.options.enableSuggestions,
                       controller: _textController,
-                      cursorColor: InheritedChatTheme.of(context)
-                          .theme
-                          .inputTextCursorColor,
-                      decoration: InheritedChatTheme.of(context)
-                          .theme
-                          .inputTextDecoration
-                          .copyWith(
-                            hintStyle: InheritedChatTheme.of(context)
-                                .theme
-                                .inputTextStyle
-                                .copyWith(
-                                  color: InheritedChatTheme.of(context)
-                                      .theme
-                                      .inputTextColor
-                                      .withOpacity(0.5),
+                      cursorColor: InheritedChatTheme.of(context).theme.inputTextCursorColor,
+                      decoration: InheritedChatTheme.of(context).theme.inputTextDecoration.copyWith(
+                            hintStyle: InheritedChatTheme.of(context).theme.inputTextStyle.copyWith(
+                                  color: InheritedChatTheme.of(context).theme.inputTextColor.withOpacity(0.5),
                                 ),
-                            hintText:
-                                InheritedL10n.of(context).l10n.inputPlaceholder,
+                            hintText: InheritedL10n.of(context).l10n.inputPlaceholder,
                           ),
                       focusNode: _inputFocusNode,
                       keyboardType: widget.options.keyboardType,
@@ -189,13 +165,8 @@ class _InputState extends State<Input> {
                       minLines: 1,
                       onChanged: widget.options.onTextChanged,
                       onTap: widget.options.onTextFieldTap,
-                      style: InheritedChatTheme.of(context)
-                          .theme
-                          .inputTextStyle
-                          .copyWith(
-                            color: InheritedChatTheme.of(context)
-                                .theme
-                                .inputTextColor,
+                      style: InheritedChatTheme.of(context).theme.inputTextStyle.copyWith(
+                            color: InheritedChatTheme.of(context).theme.inputTextColor,
                           ),
                       textCapitalization: TextCapitalization.sentences,
                     ),
@@ -224,8 +195,7 @@ class _InputState extends State<Input> {
   @override
   void didUpdateWidget(covariant Input oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.options.sendButtonVisibilityMode !=
-        oldWidget.options.sendButtonVisibilityMode) {
+    if (widget.options.sendButtonVisibilityMode != oldWidget.options.sendButtonVisibilityMode) {
       _handleSendButtonVisibilityModeChange();
     }
   }
